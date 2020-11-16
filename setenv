@@ -1,0 +1,34 @@
+
+# LICENSE
+export LM_LICENSE_FILE=5280@sambava.ics.ele.tue.nl:${LM_LICENSE_FILE}
+
+##############################################################################
+#    Cadence Tools, EUROPRACTICE 2019-20 release
+#    XCELIUM 19.03.013
+##############################################################################
+
+export CDS_XCELIUM=/opt/tools/cadence/2019-20/RHELx86/XCELIUM_19.03.013
+export PATH="${PATH}:${CDS_XCELIUM}/bin:${CDS_XCELIUM}/tools/bin:${CDS_XCELIUM}/tools/cdsgcc/gcc/bin"
+alias help_cds_xcelium='$CDS_XCELIUM/bin/cdnshelp &'
+# xrun, simvision, xmvhdl, xmvlog, xmsc, xmelab, xmsim, xmls, xmhelp, xfr, xmxlimport
+
+#############################################################################
+#    Cadence Tools, EUROPRACTICE 2019-20 release
+#    JLS 19.11.000
+##############################################################################
+
+export CDS_JLS=/opt/tools/cadence/2019-20/RHELx86/JLS_19.11.000
+export PATH="${PATH}:${CDS_JLS}/bin"
+alias help_cds_joules='$CDS_JLS/bin/cdnshelp &'
+# joules
+#
+
+##############################################################################
+#    Cadence Tools, EUROPRACTICE 2019-20 release
+#    GENUS 19.11.000
+##############################################################################
+
+export CDS_GENUS=/opt/tools/cadence/2019-20/RHELx86/GENUS_19.11.000 
+export PATH="${PATH}:${CDS_GENUS}/bin"
+alias help_cds_genus='$CDS_GENUS/tools/bin/cdnshelp &'
+# genus

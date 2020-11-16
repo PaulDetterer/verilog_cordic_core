@@ -1,0 +1,9 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+-access
++rwc
+../rtl/tb_cordic.v
+-incdir
+../rtl

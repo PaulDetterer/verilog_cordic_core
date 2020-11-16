@@ -127,7 +127,7 @@
                   Lattice ECP2 device.
 */
 //`define ITERATE
-`define PIPELINE
+//`define PIPELINE
 //`define COMBINATORIAL
 
 /* CORDIC function

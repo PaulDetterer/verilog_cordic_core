@@ -1,4 +1,6 @@
-`timescale 1ns/1ns
+`timescale 1ns/1ps
+
+
 /*
                 CORDIC testbench
                 
@@ -196,8 +198,8 @@ cordic UUT (.clk(clock),.rst(reset),
   x_i     <= 0;
   y_i     <= 0;
   theta_i <= 0;
-  #1 clock <= 1;
-  #1 clock <= 0;
+  #((`CP)/2.0) clock <= 1;
+  #((`CP)/2.0) clock <= 0;
   reset <= 0;  
 
   for (j=0;j<=90;j = j+1) begin // test 91 different angles, 0 to 90 degrees
@@ -215,32 +217,32 @@ cordic UUT (.clk(clock),.rst(reset),
 
 `ifdef ITERATE     
     init <= 1;      // load the value into the rotator
-    #1 clock <= 1;
-    #1 clock <= 0;
+    #((`CP)/2.0) clock <= 1;
+    #((`CP)/2.0) clock <= 0;
     init <= 0;
     for(i=0;i<`ITERATIONS;i = i+1) begin  // iterate on the value
-      #1 clock <= 1;
-      #1 clock <= 0;
+      #((`CP)/2.0) clock <= 1;
+      #((`CP)/2.0) clock <= 0;
     end
     show_results(j,x_o,y_o,theta_o);
 `endif
 
 
 `ifdef COMBINATORIAL
-    #1; // give a little time to view the waveform...
+    #(`CP); // give a little time to view the waveform...
     show_results(j,x_o,y_o,theta_o);
 `endif
 
 `ifdef PIPELINE
-    #1 clock <= 1;
-    #1 clock <= 0;   
+    #((`CP)/2.0) clock <= 1;
+    #((`CP)/2.0) clock <= 0;   
     if (j >= (`ITERATIONS-2)) begin // wait until the results start popping out
       show_results((j-(`ITERATIONS-2)),x_o,y_o,theta_o);
     end
     if (j == 90)  // now flush the pipe
     for(i=0;i<(`ITERATIONS-2);i = i+1) begin
-      #1 clock <= 1;
-      #1 clock <= 0;
+      #((`CP)/2.0) clock <= 1;
+      #((`CP)/2.0) clock <= 0;
       show_results((90-`ITERATIONS+3+i),x_o,y_o,theta_o);
     end
 `endif
@@ -248,7 +250,7 @@ cordic UUT (.clk(clock),.rst(reset),
 
   end
   for(i=0;i<16;i=i+1)  // dump a few extra clock just for grins
-    #1 clock <= ~clock;
+    #((`CP)/2.0) clock <= ~clock;
 end
 
 endmodule
