@@ -229,7 +229,7 @@ def plot_fft2(a,b,f_s=16e6,start=0,end=4e6, \
     
 def awgn(Iin,Qin,SNR_dB):
     """Introduction of The White Gaussian Noise to the Channel"""
-    import numpy as sp
+    import numpy as np
     snr_linear = 10.0**(float(SNR_dB)/10.0)
     #print( "SNR LINEAR FACTOR: %e"%snr_linear)
     i_avg_energy = np.sum(Iin*Iin)/len(Iin)

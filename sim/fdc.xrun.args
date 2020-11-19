@@ -1,0 +1,10 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+-access +rwc
+-timescale 1ns/1ps
+../rtl/derotator.sv
+../rtl/fir.v
+../rtl/FDC.sv
+testbench/tb_fdc.sv

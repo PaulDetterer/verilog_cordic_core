@@ -1,0 +1,13 @@
+*.log
+genus.cmd*
+genus.log*
+simvision*.diag
+xrun.history
+xcelium.d
+xrun.key
+.ipynb_checkpoints
+__pycache__
+fv
+joules_work
+waves.shm
+.simvision

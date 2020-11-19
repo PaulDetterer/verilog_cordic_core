@@ -15,14 +15,14 @@ module derotator
   parameter integer iteration = 0,
   parameter BW=12,
   parameter ABW=12,
-  parameter signed [ABW-1:0] tangle = 0,
+  parameter signed [ABW-1:0] tangle = 0
 )
 (
   input wire clk,
   input wire rst,
   input wire signed  [BW-1:0]    x_i,
   input wire signed  [BW-1:0]    y_i,
-  input wire signed  [BW-1:0] z_i,
+  input wire signed  [ABW-1:0] z_i,
   output wire signed [BW-1:0]    x_o,
   output wire signed [BW-1:0]    y_o,
   output wire signed [ABW-1:0] z_o
@@ -44,7 +44,6 @@ module derotator
         y_1 <= y_i - x_i_shifted; //shifter(x_1,i); //(x_1 >> i);
         z_1 <= z_i - tangle;
       end
-    end
   assign x_o = x_1;
   assign y_o = y_1;
   assign z_o = z_1;

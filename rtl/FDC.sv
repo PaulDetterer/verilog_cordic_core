@@ -1,4 +1,3 @@
-
 // Angle representation is always a 0.bbbbbb of a circle
 // 100000 -> half circle (pi)
 // 111111 -> 2*pi (almost)
@@ -7,7 +6,7 @@
 module FDC
 #(
     parameter BW = 12,
-    parameter ABW = 10,
+    parameter ABW = 10
 )
 (
     input clk_fs,  //  Sampling clock
@@ -20,9 +19,9 @@ module FDC
     input [ABW-1:0] Wif,
     output [BW-1:0] Iout,
     output [BW-1:0] Qout
-)
+);
     reg  [BW-1:0] Iin_s, Qin_s;
-    wire  [BW-1:0] Igr, Qgr;
+    logic  [BW-1:0] Igr, Qgr;
 
     // Sample
     always_ff @(posedge clk_fs or negedge rstb)
@@ -45,15 +44,15 @@ module FDC
         if (rstb==0)
             theta <= 0;
         else
-            theta <= unsigned(theta) + unsigned(Wif);
+            theta <= $unsigned(theta) + $unsigned(Wif);
 
     // Gross Rotation
     always_comb
         case(theta[ABW-1:ABW-2])
             2'b00    :  {Igr,Qgr} = {Iin_s,Qin_s}; // rot 0
-            2'b01    :  {Igr,Qgr} = {Qin_s,-signed(Iin_s)}; //rot p/2
-            2'b10    :  {Igr,Qgr} = {-signed(Iin_s),-signed(Qin_s)}; //rot p
-            2'b11    :  {Igr,Qgr} = {-signed(Qin_s),Iin_s}; // rot 3pi/2
+            2'b01    :  {Igr,Qgr} = {Qin_s,-$signed(Iin_s)}; //rot p/2
+            2'b10    :  {Igr,Qgr} = {-$signed(Iin_s),-$signed(Qin_s)}; //rot p
+            2'b11    :  {Igr,Qgr} = {-$signed(Qin_s),Iin_s}; // rot 3pi/2
         endcase
 
     // Fine Rotation
@@ -81,18 +80,18 @@ module FDC
 
     assign x[0] = Igr;
     assign y[0] = Qgr;
-    assign z[0] = theta;
-    wire Ifrt = x[8-1];
-    wire Qfrt = y[8-1];
-    wire ThetaR = z[8-1];
+    assign z[0] = $signed({2'b00,theta[ABW-3:0]});
+    wire [BW-1:0] Ifrt = x[8-1];
+    wire [BW-1:0] Qfrt = y[8-1];
+    wire [ABW-1:0] ThetaR = z[8-1];
 
     genvar i;
     generate for(i=0;i<8-1;i=i+1) begin
       derotator uDerotator (clk_fs,!rstb,x[i],y[i],z[i],x[i+1],y[i+1],z[i+1]);
       defparam uDerotator.BW = BW;
-      defparam UDerotator.ABW = ABW;
+      defparam uDerotator.ABW = ABW;
       defparam uDerotator.iteration = i;
-      defparam uDerotator.tangle = tanangle(i);
+      defparam uDerotator.tangle = tangle(i);
     end 
     endgenerate
 
@@ -140,10 +139,10 @@ module FDC
         .RB(rstb),
         .X(Idec1),
         .C({12'd211,12'd420,12'd503,12'd420,12'd211}),
-        .Y(Illpf2));
+        .Y(Ilpf2));
     
     fir #(.BW(BW),.N(5),.S(BW-1)) uQFIR2 (
-        .CK(clk_fs),
+        .CK(clk_fso2),
         .RB(rstb),
         .X(Qdec1),
         .C({12'd211,12'd420,12'd503,12'd420,12'd211}),
@@ -168,4 +167,3 @@ module FDC
     assign Iout = Idec2;
 
 endmodule    
-

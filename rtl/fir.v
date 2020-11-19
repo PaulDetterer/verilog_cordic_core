@@ -2,7 +2,7 @@ module fir
 #(
     parameter BW=12,
     parameter N = 5,
-    parameter S = BW-1,
+    parameter S = BW-1
 )
 (
     input          CK,
