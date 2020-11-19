@@ -17,3 +17,6 @@ fdc_tcl:
 
 fdc.tcf:
 	xrun -f fdc.xrun.args -input scr/fdcDumpAndRun.tcl
+
+mulfdc.tcf:
+	xrun -f mulfdc.xrun.args -input scr/fdcDumpAndRun.tcl

@@ -9,3 +9,6 @@ fplPower:
 fdcPower:
 	export FS_CP=31250;\
 		joules -no_gui -add_license Genus_Synthesis -f scr/FDCactivityBased.tcl
+mulfdcPower:
+	export FS_CP=31250;\
+		joules -no_gui -add_license Genus_Synthesis -f scr/MULFDCactivityBased.tcl
